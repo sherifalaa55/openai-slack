@@ -28,7 +28,7 @@ export async function generatePromptFromThread({
       if (isNotMentioned) return null
 
       return {
-        role: isBot ? 'assistant' : 'user',
+        role: isBot ? 'model' : 'user',
         parts: isBot
           ? [{text: message.text}]
           : [{text: message.text.replace(`<@${botID}> `, '')}],
