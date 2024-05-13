@@ -21,6 +21,7 @@ export async function sendGPTResponse(event: Event) {
 
     const prompts = await generatePromptFromThread(thread)
     const message = prompts.pop()?.parts[0].text;
+    console.log(prompts, message);
     const gptResponse = await getGPTResponse(prompts, message)
 
     await slack.chat.postMessage({
