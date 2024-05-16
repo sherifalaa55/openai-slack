@@ -53,7 +53,7 @@ export async function sendDirectGPTResponse(event: Event) {
     const message = prompts.pop()?.parts[0].text;
     console.log("PROMPTS", prompts, message);
     const gptResponse = await getGPTResponse(prompts, message)
-
+    console.log("GPTRESPONSE", gptResponse);
     await slack.chat.postMessage({
       channel,
       // text: `${gptResponse.choices[0].message.content}`,
