@@ -30,6 +30,7 @@ export async function POST(request: Request) {
   if (await isValidSlackRequest(request, body)) {
     if (requestType === 'event_callback') {
       const eventType = body.event.type
+      console.log(eventType);
       if (eventType === 'app_mention') {
         await sendGPTResponse(body.event)
         return new Response('Success!', { status: 200 })
