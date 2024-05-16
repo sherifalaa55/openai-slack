@@ -45,15 +45,13 @@ export async function sendDirectGPTResponse(event: Event) {
   const { channel, ts, thread_ts } = event
   console.log(channel, ts, thread_ts)
   try {
-    const thread = await slack.conversations.replies({
-      channel,
-      ts: thread_ts ?? ts,
-      inclusive: true,
+    const thread = await slack.conversations.history({
+      channel: channel,
     })
-    console.log(thread);
+    console.log("THREAD", thread);
     const prompts = await generatePromptFromThread(thread)
     const message = prompts.pop()?.parts[0].text;
-    console.log(prompts, message);
+    console.log("PROMPTS", prompts, message);
     const gptResponse = await getGPTResponse(prompts, message)
 
     await slack.chat.postMessage({
