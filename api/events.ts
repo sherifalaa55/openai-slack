@@ -2,7 +2,7 @@ import crypto from 'crypto'
 import { sendThreadGPTResponse, sendDirectGPTResponse } from './_chat'
 
 export const config = {
-  maxDuration: 30,
+  maxDuration: 60,
 }
 
 async function isValidSlackRequest(request: Request, body: any) {
