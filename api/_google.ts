@@ -20,19 +20,27 @@ export async function generatePromptFromThread(messages: MessageElement[]) {
   if (!messages) throw new Error('No messages found in thread')
   const botID = messages[0].reply_users?.[0]
   console.log(botID, messages);
+  messages = messages.reverse();
   
   const result = messages
-    .map((message: any) => {
-      const isBot = !!message.bot_id && !message.client_msg_id
-
-      return {
-        role: isBot ? 'model' : 'user',
-        parts: isBot
-          ? [{text: message.text}]
-          : [{text: message.text.replace(`<@${botID}> `, '')}],
-      }
-    })
-    .filter(Boolean)
-
-  return result
+  .map((message: any) => {
+    const isBot = !!message.bot_id && !message.client_msg_id
+    
+    return {
+      role: isBot ? 'model' : 'user',
+      parts: isBot
+      ? [{text: message.text}]
+      : [{text: message.text.replace(`<@${botID}> `, '')}],
+    }
+  })
+  .filter(Boolean)
+  
+  let filteredMessage = [result[0]];
+  for (let i = 1; i < result.length; i++) {
+    if (result[i].role != filteredMessage[i-1].role) {
+      filteredMessage.push(result[i]);
+    }
+  }
+  
+  return filteredMessage
 }
