@@ -9,7 +9,7 @@ type Event = {
   thread_ts?: string
 }
 
-export async function sendGPTResponse(event: Event) {
+export async function sendThreadGPTResponse(event: Event) {
   const { channel, ts, thread_ts } = event
   console.log(channel, ts, thread_ts)
   try {
@@ -35,6 +35,36 @@ export async function sendGPTResponse(event: Event) {
       await slack.chat.postMessage({
         channel,
         thread_ts: ts,
+        text: `<@${process.env.SLACK_ADMIN_MEMBER_ID}> Error: ${error.message}`,
+      })
+    }
+  }
+}
+
+export async function sendDirectGPTResponse(event: Event) {
+  const { channel, ts, thread_ts } = event
+  console.log(channel, ts, thread_ts)
+  try {
+    const thread = await slack.conversations.replies({
+      channel,
+      ts: thread_ts ?? ts,
+      inclusive: true,
+    })
+    console.log(thread);
+    const prompts = await generatePromptFromThread(thread)
+    const message = prompts.pop()?.parts[0].text;
+    console.log(prompts, message);
+    const gptResponse = await getGPTResponse(prompts, message)
+
+    await slack.chat.postMessage({
+      channel,
+      // text: `${gptResponse.choices[0].message.content}`,
+      text: `${gptResponse.response.text()}`,
+    })
+  } catch (error) {
+    if (error instanceof Error) {
+      await slack.chat.postMessage({
+        channel,
         text: `<@${process.env.SLACK_ADMIN_MEMBER_ID}> Error: ${error.message}`,
       })
     }

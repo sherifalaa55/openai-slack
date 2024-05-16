@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { sendGPTResponse } from './_chat'
+import { sendThreadGPTResponse, sendDirectGPTResponse } from './_chat'
 
 export const config = {
   maxDuration: 30,
@@ -32,11 +32,11 @@ export async function POST(request: Request) {
       const eventType = body.event.type
       console.log(eventType);
       if (eventType === 'app_mention') {
-        await sendGPTResponse(body.event)
+        await sendThreadGPTResponse(body.event)
         return new Response('Success!', { status: 200 })
       }
       if (eventType === 'message') {
-        await sendGPTResponse(body.event)
+        await sendDirectGPTResponse(body.event)
         return new Response('Success!', { status: 200 })
       }
     }
