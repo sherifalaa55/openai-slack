@@ -19,12 +19,11 @@ export async function getGPTResponse(history: any[], message: string) {
 export async function generatePromptFromThread(messages: MessageElement[]) {
   if (!messages) throw new Error('No messages found in thread')
   const botID = messages[0].reply_users?.[0]
-
+  console.log(botID, messages);
+  
   const result = messages
     .map((message: any) => {
       const isBot = !!message.bot_id && !message.client_msg_id
-      const isNotMentioned = !isBot && !message.text.startsWith(`<@`)
-      if (isNotMentioned) return null
 
       return {
         role: isBot ? 'model' : 'user',
