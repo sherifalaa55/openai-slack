@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   const rawBody = await request.text()
   const body = JSON.parse(rawBody)
   const requestType = body.type
-
+  console.log(requestType)
   if (requestType === 'url_verification') {
     return new Response(body.challenge, { status: 200 })
   }
