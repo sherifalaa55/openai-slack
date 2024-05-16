@@ -36,9 +36,11 @@ export async function generatePromptFromThread(messages: MessageElement[]) {
   .filter(Boolean)
   
   let filteredMessage = [result[0]];
+  let lastRole = ''
   for (let i = 1; i < result.length; i++) {
-    if (result[i].role != filteredMessage[i-1].role) {
+    if (result[i].role != lastRole) {
       filteredMessage.push(result[i]);
+      lastRole = result[i].role
     }
   }
   
