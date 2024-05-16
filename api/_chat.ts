@@ -52,13 +52,19 @@ export async function sendDirectGPTResponse(event: Event) {
     const prompts = await generatePromptFromThread(thread.messages || [])
     const message = prompts.pop()?.parts[0].text;
     console.log("PROMPTS", prompts, message);
+    let pLogs = prompts.map(p => {
+      return {
+        role: p.role,
+        parts: p.parts[0].text
+      }
+    });
+    console.log("history", pLogs);
     const gptResponse = await getGPTResponse(prompts, message)
     console.log("GPTRESPONSE", gptResponse);
     console.log("GPTRESPONSE", gptResponse.response);
     console.log("GPTRESPONSE", gptResponse.response.text());
     await slack.chat.postMessage({
       channel,
-      // text: `${gptResponse.choices[0].message.content}`,
       text: `${gptResponse.response.text()}`,
     })
   } catch (error) {
