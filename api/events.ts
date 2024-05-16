@@ -35,6 +35,10 @@ export async function POST(request: Request) {
         await sendGPTResponse(body.event)
         return new Response('Success!', { status: 200 })
       }
+      if (eventType === 'message') {
+        await sendGPTResponse(body.event)
+        return new Response('Success!', { status: 200 })
+      }
     }
   }
 

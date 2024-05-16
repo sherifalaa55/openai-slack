@@ -11,7 +11,7 @@ type Event = {
 
 export async function sendGPTResponse(event: Event) {
   const { channel, ts, thread_ts } = event
-
+  console.log(channel, ts, thread_ts)
   try {
     const thread = await slack.conversations.replies({
       channel,
