@@ -34,10 +34,10 @@ export async function generatePromptFromThread(messages: MessageElement[]) {
     }
   })
   .filter(Boolean)
-  result.unshift({
-    role: "system",
-    parts: [{text: "You are an ecommerce manager called egpt, your role is to assist a user that owns an ecommerce with his tasks"}]
-  })
+  // result.unshift({
+  //   role: "system",
+  //   parts: [{text: "You are an ecommerce manager called egpt, your role is to assist a user that owns an ecommerce with his tasks"}]
+  // })
   let filteredMessage = [result[0]];
   let lastRole = result[0].role
   for (let i = 1; i < result.length; i++) {
