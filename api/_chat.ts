@@ -28,7 +28,8 @@ export async function sendThreadGPTResponse(event: Event) {
       channel,
       thread_ts: ts,
       // text: `${gptResponse.choices[0].message.content}`,
-      text: `${gptResponse.response.text()}`,
+      // text: `${gptResponse.response.text()}`,
+      text: `${gptResponse.response.candidates[0].content.parts[0].text}`,
     })
   } catch (error) {
     if (error instanceof Error) {

@@ -2,6 +2,7 @@
   "name": "slackbot",
   "private": true,
   "dependencies": {
+    "@google-cloud/vertexai": "^1.1.0",
     "@google/generative-ai": "^0.11.1",
     "@slack/web-api": "7.0.1",
     "openai": "4.26.0"
