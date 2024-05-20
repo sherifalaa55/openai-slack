@@ -10,7 +10,7 @@ export async function getGPTResponse(history: any[], message: string) {
   const chat = model.startChat({
     history: history,
     generationConfig: {
-      maxOutputTokens: 100,
+      maxOutputTokens: 10000,
     },
   })
   return await chat.sendMessage(message);
