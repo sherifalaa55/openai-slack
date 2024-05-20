@@ -1,5 +1,5 @@
 import { WebClient } from '@slack/web-api'
-import { getGPTResponse, generatePromptFromThread } from './_google'
+import { getGPTResponse, generatePromptFromThread } from './_vertex'
 
 const slack = new WebClient(process.env.SLACK_BOT_TOKEN)
 
