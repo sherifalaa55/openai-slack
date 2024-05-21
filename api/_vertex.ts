@@ -51,7 +51,7 @@ export async function generatePromptFromThread(messages: MessageElement[]) {
     }
   })
   .filter((message: any) => {
-    return message.parts[0].text.indexOf("Error: ") === -1;
+    return message.parts[0].text.indexOf("Error: ") !== -1;
   })
 
   let filteredMessage = [result[0]];
