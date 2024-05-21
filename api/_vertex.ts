@@ -36,7 +36,7 @@ export async function getGPTResponse(history: any[], message: string) {
 export async function generatePromptFromThread(messages: MessageElement[]) {
   if (!messages) throw new Error('No messages found in thread')
   const botID = messages[0].reply_users?.[0]
-  console.log(messages);
+  // console.log(messages);
   messages = messages.reverse();
   
   const result = messages
