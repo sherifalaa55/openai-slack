@@ -60,7 +60,7 @@ export async function sendDirectGPTResponse(event: Event) {
       }
     });
     console.log("history", pLogs);
-    const gptResponse = await getGPTResponse(prompts, message)
+    const gptResponse = await getGPTResponse(prompts, "message")
     console.log("GPTRESPONSE", gptResponse);
     console.log("GPTRESPONSE", gptResponse.response);
     // console.log("GPTRESPONSE", gptResponse.response.text());
