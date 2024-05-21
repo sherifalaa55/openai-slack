@@ -51,8 +51,8 @@ export async function sendDirectGPTResponse(event: Event) {
     })
     console.log("THREAD", thread);
     const prompts = await generatePromptFromThread(thread.messages || [])
-    const message = prompts.pop()?.parts[0].text;
-    console.log("PROMPTS", prompts, message);
+    // const message = prompts.pop()?.parts[0].text;
+    console.log("PROMPTS", prompts, "message");
     let pLogs = prompts.map(p => {
       return {
         role: p.role,
