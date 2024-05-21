@@ -50,7 +50,9 @@ export async function generatePromptFromThread(messages: MessageElement[]) {
       : [{text: message.text.replace(`<@${botID}> `, '')}],
     }
   })
-  .filter(Boolean)
+  .filter((message: any) => {
+    return !message.includes("Error: ")
+  })
 
   let filteredMessage = [result[0]];
   let lastRole = result[0].role
